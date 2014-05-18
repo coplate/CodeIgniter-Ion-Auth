@@ -513,7 +513,7 @@ class Auth extends CI_Controller {
 		if (isset($_POST) && !empty($_POST))
 		{
 			// do we have a valid request?
-			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
+			if ($this->_valid_csrf_nonce() === FALSE || (!$this->ion_auth->is_admin() && ($id != $this->input->post('id'))))// Adding same admin check as above, to allow logged in admin to edit other users
 			{
 				show_error($this->lang->line('error_csrf'));
 			}
